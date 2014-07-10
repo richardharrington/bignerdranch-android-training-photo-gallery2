@@ -1,20 +1,18 @@
 package com.bignerdranch.android.photogallery;
 
-import java.util.ArrayList;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +23,8 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SearchView;
+
+import java.util.ArrayList;
 
 public class PhotoGalleryFragment extends Fragment {
     GridView mGridView;
@@ -39,6 +39,9 @@ public class PhotoGalleryFragment extends Fragment {
         setHasOptionsMenu(true);
 
         updateItems();
+
+        Intent i = new Intent(getActivity(), PollService.class);
+        getActivity().startService(i);
 
         mThumbnailThread = new ThumbnailDownloader(new Handler());
         mThumbnailThread.start();
